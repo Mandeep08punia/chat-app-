@@ -14,7 +14,11 @@ function Chats() {
         await auth.signOut();
         history.push('/');
     }
-    
+    const getFile=async(url)=>{
+        const response=await fetch(url);
+        const data=await response.blob();
+        return  new File([data],'userPhoto.jpg',{type:'image/jpeg'})
+    }
     useEffect(()=>{
         if(!user){
             history.push('/');
@@ -34,8 +38,19 @@ function Chats() {
             formdata.append('email','user.email')
             formdata.append('username','displayName')
             formdata.append('secret','user.uid');
+            getFile(user.photoURL)
+            .then((avatar)=>{
+                formdata.append('avatar',avatar,avatar.name);
+                axios.post("https://api.chatengine.io/users",formdata,
+                {headers:{"private-key":"68b819ff-8070-4d55-9478-666585e25d68"}})
+                .then(()=>setLoading(false))
+                .catch((error)=>console.log(error))
+            })
+            
         })
     },[user,history])
+    if(!user || loading)
+    return 'Loading...'
     return (
         <div className="chats-page">
             <div className="nav-bar">
@@ -47,9 +62,9 @@ function Chats() {
                 </div>
             </div>
             <ChatEngine height="calc(100vh-66px)"
-                projectId="8c4ef433-1c4b-4569-bda7-59dad4000612"
-                username="."
-                userSecret="."
+                projectID="8c4ef433-1c4b-4569-bda7-59dad4000612"
+                username={user.email}
+                userSecret={user.uid}
             />
         </div>
     )
