@@ -8,8 +8,8 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom"
 
 function App() {
   return (
-    <div style={{ fontFamily: 'Avenir' }}>
-    <h1>Hello</h1>
+    <div style={{ fontFamily: 'Roboto' }}>
+ 
       <Router>
        <AuthProvider>
           <Switch>
