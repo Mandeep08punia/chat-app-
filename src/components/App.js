@@ -1,9 +1,9 @@
 import React from "react"
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom"
 
-// import { AuthProvider } from "../contexts/AuthContext"
+ import { AuthProvider } from "../contexts/AuthContext"
 
-// import Chats from "./Chats"
+ import Chats from "./Chats"
  import Login from "./Login"
 
 function App() {
@@ -11,12 +11,12 @@ function App() {
     <div style={{ fontFamily: 'Avenir' }}>
     <h1>Hello</h1>
       <Router>
-        {/* <AuthProvider> */}
+       <AuthProvider>
           <Switch>
-            {/* <Route path="/chats" component={Chats} />*/}
+             <Route path="/chats" component={Chats} />
             <Route path="/" component={Login} /> 
           </Switch>
-        {/* </AuthProvider> */}
+         </AuthProvider> 
       </Router>
     </div>
   )
